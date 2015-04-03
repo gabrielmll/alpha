@@ -1,0 +1,101 @@
+*** Dependencies ***
+
+To run, multidupehack requires the Boost library. Most of GNU/Linux
+distributions have it in their repositories. Simply use your package
+manager to install it. Notice however that Debian and its derivatives
+(including the *buntu) split that library into several packages. If
+you run one of them, you must install libboost-dev,
+libboost-program-options and libboost-program-options-dev.
+
+To manually install the Boost library (for example if you are running
+a proprietary operating system), this Web page may help you:
+http://www.boost.org/more/getting_started/index.html
+
+
+*** Compilation ***
+
+multidupehack was meant to be built with GCC version 4.7 or
+later. However one can easily adapt the makefile to use another
+compiler.
+
+To install multidupehack on a *NIX-like operating system, run (with
+administrator privileges):
+# make install
+
+If you do not have access to administrator privileges or if you do not
+run a *NIX-like operating system, simply run:
+$ make
+The executable, called multidupehack, is created in the working
+directory. You can then move it to a personal directory listed in your
+PATH variable.
+
+
+*** Compilation Options ***
+
+Several options can be easily enabled (respectively disabled) in
+Parameters.h by uncommenting (respectively commenting) them:
+
+* OUTPUT turns on the output. This option may be disabled to evaluate
+the performances of multidupehack independently from the writing
+performances of the disk.
+
+* MIN_SIZE_ELEMENT_PRUNING turns on the heuristic that removes from
+the search space individual elements that would necessarily make a
+pattern violate some minimal size or area constraint
+
+* ENUMERATION_PROCESS selects the procedure that decides what is the
+dimension the next enumerated element is taken in:
+0: choose the dimension first, then choose the element w.r.t the noise
+it introduces in the potential part of the search space
+1: choose the dimension first, then choose the element w.r.t. the
+noise it introduces in the present part of the search space (in
+present and potential in case of equality)
+
+* VERBOSE_PARSER turns on the output (on the standard output) of
+information when the input data and group files are parsed.
+
+* DEBUG turns on the output (on the standard output) of information
+during the extraction of the closed error-tolerant n-sets. This option
+may be enabled by someone who wishes to precisely understand how this
+extraction is performed on a small data set.
+
+* VERBOSE_DIM_CHOICE turns on the output (on the standard output) of
+information regarding the choice of the next dimension to be
+enumerated. Combined with DEBUG, this option may be enabled by someone
+who wishes to precisely understand how this choice is performed on a
+small data set.
+
+* NB_OF_CLOSED_N_SETS turns on the output (on the standard output) of
+how many closed error-tolerant n-sets were selected during the
+extraction phase.
+
+* NB_OF_LEFT_NODES turns on the output (on the standard output) of how
+many patterns were considered during the extraction phase, i.e., the
+count of valid (but not always maximal) patterns with regard to the
+applied constraints. This option may be enabled by someone who wishes
+a measure of the time complexity independent from the hardware
+performance.
+
+* TIME turns on the output (on the standard output) of the running
+time of multidupehack.
+
+* DETAILED_TIME turns on the output (on the standard output) of a more
+detailed analysis of how the time is spent. It gives (in this order):
+- the parsing time
+- the pre-processing time (to reduce the relation)
+- the mining time
+- the post-processing time (to agglomerate the closed error-tolerant
+  n-sets)
+- the time spent checking the closedness of the computed
+  error-tolerant n-sets
+- the time spent searching for irrelevant elements
+- the time spent cleaning the set of absent elements
+
+* GNUPLOT modifies the way NB_OF_CLOSED_N_SETS, NB_OF_LEFT_NODES, TIME
+and DETAILED_TIME (in this order) format their outputs. Instead of
+being human readable, they are directly understandable by the famous
+gnuplot software.
+
+Please notice that some of these options may considerably alter the
+performances of multidupehack. For example one could think that
+DETAILED_TIME does not really slow multidupehack but it does!
